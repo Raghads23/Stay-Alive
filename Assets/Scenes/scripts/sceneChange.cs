@@ -8,4 +8,9 @@ public class SimpleSceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName); 
     }
+
+    void OnMouseDown()
+    {
+        ChangeScene();
+    }
 }

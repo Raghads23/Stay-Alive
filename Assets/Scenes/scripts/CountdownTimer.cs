@@ -14,11 +14,11 @@ public class CountdownTimer : MonoBehaviour
 
     void Update()
     {
-        if (gameEnded) return;
+        if (gameEnded) return; // if true يطلع من الابديت
 
         timeRemaining -= Time.deltaTime;
 
-        if (timerText != null)
+        if (timerText != null) // يتأكد انه موجود بالانسبكتور 
             timerText.text = math.ceil(timeRemaining).ToString();
 
         if (timeRemaining <= 0f)

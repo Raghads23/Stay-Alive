@@ -1,2 +1,12 @@
 fileFormatVersion: 2
 guid: fd28cd00702224a53852d50f1af03886
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - splashSound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

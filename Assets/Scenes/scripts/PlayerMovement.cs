@@ -4,12 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public int speed;
     private Rigidbody2D player;
+    public int speed;
     private float moveInput;
     public bool canMove = true; // نتحكم في الحركة من سكربت آخر
-    public float smooth = 0.1f; // للتحكم في انسيابية الحركة
      private float velocityX;
+    
     void Start()
     {
         player = GetComponent<Rigidbody2D>();
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
-            velocityX = math.lerp(player.linearVelocity.x,moveInput * speed,smooth);
+            velocityX = math.lerp(player.linearVelocity.x, moveInput * speed, 0.1f); //من اي الى بي بمقدار 0.1 
             player.linearVelocity = new Vector2(velocityX, player.linearVelocity.y); 
         }
     }

@@ -4,13 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHitHandler : MonoBehaviour
 {
-    private PlayerMovement player;
+    private PlayerMovement player; // PlayerMovement script
+
     private Animator animator;
-    private string hitAnimationName = "hitAnimation"; // اسم الأنميشن
-    private bool isHit = false;
+    private string hitAnimationName = "hitAnimation"; // hit animation name
+    //private bool isHit = false; 
+
+    public LightFade light; // LightFade script
+    public ParticleSystem splashEffect; // Particle System
+    public AudioClip waterTouchFire; // Audio 
     public string sceneName;
 
-    public LightFade light;
 
     void Start()
     {
@@ -19,17 +23,22 @@ public class PlayerHitHandler : MonoBehaviour
         player = GetComponent<PlayerMovement>();
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision) // اذا القيم اوبجكت اللي فيه السكربت تصادم بشي ثاني
     {
-        if (collision.gameObject.CompareTag("drops") && !isHit)
+        if (collision.gameObject.CompareTag("drops")) //  && !isHit
         {
-            isHit = true;
-            player.canMove = false;
+            //isHit = true;
+            player.canMove = false; // in PlayerMovement script
             animator.SetTrigger("hit");
+            AudioSource.PlayClipAtPoint(waterTouchFire,Vector3.zero);
 
-             if (light != null){
-            light.FadeOut();
-        }
+
+             if (light != null) 
+             {
+                light.FadeOut();
+                splashEffect.Stop();
+             }
+             
             StartCoroutine(WaitForAnimation("hitAnimation"));
 
         }
@@ -41,11 +50,16 @@ public class PlayerHitHandler : MonoBehaviour
     {
         // ننتظر لين يبدأ الأنميشن
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
-            yield return null;
-
+        {
+            yield return null; // if true
+        }
+            
         // ننتظر لين ينتهي الأنميشن
-        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-            yield return null;
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) // normalizedTime = النسبة المئوية من الأنيميشن الذي تم تنفيذه
+        {
+            yield return null; // if true
+        }
+            
 
         // تحميل المشهد الذي كتبته في الـ Inspector
         SceneManager.LoadScene(sceneName);
